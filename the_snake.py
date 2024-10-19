@@ -1,6 +1,6 @@
 from random import randint
 import pygame
-from typing import Optional, Tuple, List
+from typing import Optional, Tuple
 
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -43,8 +43,8 @@ class GameObject:
         body_color: Optional[Tuple[int, int, int]] = None
     ):
         """Инициализация позиции и цвета объекта"""
-        self.position = position
-        self.body_color = color
+        self.position = position or (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        self.body_color = color or (255, 255, 255)
 
     def draw(self):
         """Абстрактный метод для отрисовки объекта"""
