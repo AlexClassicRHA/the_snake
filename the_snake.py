@@ -40,7 +40,7 @@ class GameObject:
     def __init__(
         self,
         position: Optional[Tuple[int, int]] = None,
-        body_color: Optional[Tuple[int, int, int]] = None
+        color: Optional[Tuple[int, int, int]] = None
     ):
         """Инициализация позиции и цвета объекта"""
         self.position = position or (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
