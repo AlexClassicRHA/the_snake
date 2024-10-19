@@ -32,7 +32,7 @@ clock = pygame.time.Clock()
 
 class GameObject:
     """Базовый класс для игровых объектов, содержит общие атрибуты и методы"""
-    
+
     def __init__(self, position, color):
         """Инициализация позиции и цвета объекта"""
         self.position = position
@@ -45,7 +45,7 @@ class GameObject:
 
 class Apple(GameObject):
     """Класс для яблока на игровом поле"""
-    
+
     def __init__(self):
         """Инициализация яблока с рандомной позицией и цветом"""
         super().__init__((0, 0), APPLE_COLOR)
@@ -53,7 +53,10 @@ class Apple(GameObject):
 
     def randomize_position(self):
         """Устанавливает случайную позицию яблока на игровом поле"""
-        self.position = (randint(0, GRID_WIDTH - 1) * GRID_SIZE, randint(0, GRID_HEIGHT - 1) * GRID_SIZE)
+        self.position = (
+            randint(0, GRID_WIDTH - 1) * GRID_SIZE,
+            randint(0, GRID_HEIGHT - 1) * GRID_SIZE
+        )
 
     def draw(self):
         """Отрисовка яблока на экране"""
@@ -63,43 +66,51 @@ class Apple(GameObject):
 
 
 class Snake(GameObject):
-    """Класс для змейки, отвечает за логику её движения, роста и отрисовки"""
-    
+    """
+    Класс для змейки, отвечает за логику её
+    движения, роста и отрисовки
+    """    
     def __init__(self):
         """Инициализация змейки с начальной позицией и цветом"""
-        super().__init__((100, 100), SNAKE_COLOR)  # Инициализация базового класса
+        super().__init__((100, 100), SNAKE_COLOR) 
         self.length = 1
-        self.positions = [(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))]  # Начальная позиция змейки
-        self.direction = RIGHT  # Начальное направление
-        self.next_direction = RIGHT  # Устанавливаем начальное следующее направление
+        self.positions = [(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))] 
+        self.direction = RIGHT
+        self.next_direction = RIGHT
         self.last = None
 
     def update_direction(self):
-        """Обновляет направление движения змейки в зависимости от нажатия клавиш"""
+        """
+        Обновляет направление движения змейки
+        в зависимости от нажатия клавиш
+        """
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None  # Сбрасываем после обновления
 
     def move(self):
-        """Обновляет позицию змейки, добавляет новый сегмент и удаляет хвост, если длина не увеличивается"""
-        cur = self.positions[0]  # Текущая позиция головы змейки (кортеж из двух чисел)
-        x, y = self.direction  # Направление движения (x, y)
+        """
+        Обновляет позицию змейки, добавляет новый сегмент и удаляет хвост,
+        если длина не увеличивается
+        """
+        cur = self.positions[0]
+        x, y = self.direction
 
         new_head = ((cur[0] + x * GRID_SIZE) % SCREEN_WIDTH, 
-                     (cur[1] + y * GRID_SIZE) % SCREEN_HEIGHT)  # Вычисляем новую позицию головы змейки
+                     (cur[1] + y * GRID_SIZE) % SCREEN_HEIGHT)
 
         if new_head in self.positions:
-            self.reset()  # Если змейка столкнулась сама с собой, сбрасываем игру
+            self.reset()
         else:
-            self.positions = [new_head] + self.positions[:self.length]  # Добавляем кортеж в список
-            self.last = self.positions[-1]  # Запоминаем последний сегмент (хвост)
+            self.positions = [new_head] + self.positions[:self.length]
+            self.last = self.positions[-1]
 
     def reset(self):
         """Сброс состояния змейки после столкновения с самой собой"""
         self.length = 1
-        self.positions = [(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))]  # Установка на центр
+        self.positions = [(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))]
         self.direction = RIGHT
-        self.next_direction = RIGHT  # Устанавливаем следующее направление на первоначальное
+        self.next_direction = RIGHT
 
     def grow(self):
         """Увеличивает длину змейки после поедания яблока"""
@@ -121,7 +132,6 @@ class Snake(GameObject):
             pygame.draw.rect(screen, self.body_color, head_rect)
             pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
 
-            # Затирание последнего сегмента
             if self.last:
                 last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
                 pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
@@ -174,7 +184,7 @@ def main():
         apple.draw()
         pygame.display.update()
 
-    pygame.quit()  # Закрываем игру корректно после выхода из цикла
+    pygame.quit()
 
 
 if __name__ == '__main__':
