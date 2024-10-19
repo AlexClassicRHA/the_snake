@@ -31,7 +31,10 @@ clock = pygame.time.Clock()
 
 
 class GameObject:
-    """Базовый класс для игровых объектов, содержит общие атрибуты и методы"""
+    """
+    Базовый класс для игровых объектов,
+    содержит общие атрибуты и методы
+    """
 
     def __init__(self, position, color):
         """Инициализация позиции и цвета объекта"""
@@ -119,22 +122,21 @@ class Snake(GameObject):
     def get_head_position(self):
         """Возвращает позицию головы змейки"""
         return self.positions[0]
-    
 
     def draw(self):
-            """Отрисовка всех сегментов змейки"""
-            for position in self.positions[:-1]:
-                rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
-                pygame.draw.rect(screen, self.body_color, rect)
-                pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+        """Отрисовка всех сегментов змейки"""
+        for position in self.positions[:-1]:
+            rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
+            pygame.draw.rect(screen, self.body_color, rect)
+            pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
-            head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
-            pygame.draw.rect(screen, self.body_color, head_rect)
-            pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
+        head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
+        pygame.draw.rect(screen, self.body_color, head_rect)
+        pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
 
-            if self.last:
-                last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
-                pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
+        if self.last:
+            last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
+            pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
 
 def handle_keys(snake):
