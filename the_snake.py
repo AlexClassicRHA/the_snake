@@ -1,5 +1,6 @@
 from random import randint
 import pygame
+from typing import Optional, Tuple, List
 
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -36,7 +37,11 @@ class GameObject:
     содержит общие атрибуты и методы
     """
 
-    def __init__(self, position, color):
+    def __init__(
+        self,
+        position: Optional[Tuple[int, int]] = None,
+        body_color: Optional[Tuple[int, int, int]] = None
+    ):
         """Инициализация позиции и цвета объекта"""
         self.position = position
         self.body_color = color
