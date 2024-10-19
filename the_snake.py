@@ -72,12 +72,13 @@ class Snake(GameObject):
     """
     Класс для змейки, отвечает за логику её
     движения, роста и отрисовки
-    """    
+    """
+    
     def __init__(self):
         """Инициализация змейки с начальной позицией и цветом"""
-        super().__init__((100, 100), SNAKE_COLOR) 
+        super().__init__((100, 100), SNAKE_COLOR)
         self.length = 1
-        self.positions = [(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))] 
+        self.positions = [(int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2))]
         self.direction = RIGHT
         self.next_direction = RIGHT
         self.last = None
@@ -99,8 +100,10 @@ class Snake(GameObject):
         cur = self.positions[0]
         x, y = self.direction
 
-        new_head = ((cur[0] + x * GRID_SIZE) % SCREEN_WIDTH, 
-                     (cur[1] + y * GRID_SIZE) % SCREEN_HEIGHT)
+        new_head = (
+            (cur[0] + x * GRID_SIZE) % SCREEN_WIDTH,
+            (cur[1] + y * GRID_SIZE) % SCREEN_HEIGHT
+        )
 
         if new_head in self.positions:
             self.reset()
